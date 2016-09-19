@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html" 
+      xmlns:p="http://primefaces.org/ui" 
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head> 
+        <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+        <title>Lsim</title> 
+    </h:head> 
+    <h:body style="font-size: 11px;">
+        <h:form id="detForm"> 
+            <p:panel style="border: none" rendered="#{handlerCnt.model.editView}" id="detailPanel" header="Handler Details">
+                <center>
+                    <h:panelGrid cellpadding="10"  columns="4">           
+                        <h:outputText value="handler_name"/>
+                        <p:inputText required="true" requiredMessage="Handler adını daxil edin" value="#{handlerCnt.handler.handler_name}"/>
+                        <h:outputText value="hostname"/>
+                        <p:inputText required="true" requiredMessage="host adını daxil edin" value="#{handlerCnt.handler.hostname}"/>
+                        <h:outputText value="a_num"/>
+                        <p:inputTextarea required="true" requiredMessage="A Num mesajı daxil edin" value="#{handlerCnt.handler.a_num}"/>
+                        <h:outputText value="b_num"/>
+                        <p:inputTextarea required="true" requiredMessage="B Num mesajı daxil edin" value="#{handlerCnt.handler.b_num}"/>
+                        <h:outputText value="content"/>
+                        <p:inputText required="true" requiredMessage="Content daxil edin" value="#{handlerCnt.handler.content}"/>
+                        <h:outputText value="Handler Type Name"/>
+                        <p:selectOneMenu  required="true" requiredMessage="Handler tipi daxil edin"  value="#{handlerCnt.handler.hand_type_id}">
+                            <!--<f:selectItem   itemLabel="Not Selected" itemValue="0"/>-->
+                            <f:selectItem   itemLabel="PL SQL" itemValue="1"/>
+                            <p:ajax event="change"   process="@this"/>
+                        </p:selectOneMenu>
+                        <h:outputText value="Proc Name"/>
+                        <p:inputText value="#{handlerCnt.handler.proc_name}"/>
+                        <h:outputText value="Sort Order"/>
+                        <p:inputText converterMessage="Sort Order required number format" value="#{handlerCnt.handler.sort_order}"/>
+                        <h:outputText value="Handler Status"/>
+                        <p:inputText required="true" requiredMessage="Status daxil edin" value="#{handlerCnt.handler.hand_status}"/>
+                        <h:outputText value="Valid From"/>
+                        <p:calendar  pattern="MM/dd/yyyy" required="true" requiredMessage="Valid From tarixi daxil edin" converterMessage="Valid From is not correct date format" value="#{handlerCnt.handler.valid_from}"/>
+                        <h:outputText value="Valid To"/>
+                        <p:calendar  pattern="MM/dd/yyyy" required="true" requiredMessage="Valid To tarixi daxil edin" converterMessage="Valid to is not correct date format" value="#{handlerCnt.handler.valid_to}"/>
+                        <h:outputText value="Tarif Pack Name"/>
+                        <p:selectOneMenu   required="true" requiredMessage="Tarif secin" value="#{handlerCnt.handler.pack_tarif_id}">
+                            <!--<f:selectItem   itemLabel="Not Selected" itemValue="0"/>-->
+                            <f:selectItems  value="#{baseCnt.tarifPackss}" var="pkg" itemLabel="#{pkg.item_name}" itemValue="#{pkg.item_value}"/>
+                            <p:ajax event="change"   process="@this"/>
+                        </p:selectOneMenu> 
+                        <h:outputText value="charge_reason"/>
+                        <p:inputText value="#{handlerCnt.handler.charge_reason}"/>
+                        <h:outputText value="app_name"/>
+                        <p:inputText required="true" requiredMessage="Appname daxil edin" value="#{handlerCnt.handler.app_name}"/>
+                        <h:outputText value="Retry on network Error"/>
+                        <p:inputText required="true" requiredMessage="Retry on network Error daxil edin" converterMessage="Retry on network Error required a number field" value="#{handlerCnt.handler.retry_on_netErr}"/>
+
+                        <h:outputText value="Number param1"/>
+                        <p:inputText converterMessage="Number param1 required a number field" value="#{handlerCnt.handler.numparam1}"/>
+                        <h:outputText value="Number param2"/>
+                        <p:inputText converterMessage="Number param2 required a number field" value="#{handlerCnt.handler.numparam2}"/>
+                        <h:outputText value="strparam1"/>
+                        <p:inputText value="#{handlerCnt.handler.strparam1}"/>
+                        <h:outputText value="strparam2"/>
+                        <p:inputText value="#{handlerCnt.handler.strparam2}"/>
+                        <h:outputText value="Send Charge Fail"/>
+                        <p:inputText converterMessage="Send Charge Fail required a number field" required="true" requiredMessage="Send Charge Fail daxil edin" value="#{handlerCnt.handler.send_Charge_Fail}"/>
+                        <h:outputText value="Segment id "/>
+                        <p:inputText converterMessage="Segment id required a number field" value="#{handlerCnt.handler.seg_id}"/>
+                        <h:outputText value="login"/> 
+                        <p:selectOneMenu filter="true" filterMatchMode="contains" required="true" requiredMessage="Login daxil edin" value="#{handlerCnt.handler.user_id}">
+                            <!--<f:selectItem   itemLabel="Not Selected" itemValue="0"/>-->
+                            <f:selectItems  value="#{baseCnt.userList}" var="pkg" itemLabel="#{pkg.item_name}" itemValue="#{pkg.item_value}"/>
+                            <p:ajax event="change"   process="@this"/>
+                        </p:selectOneMenu>
+                    </h:panelGrid>              
+                    <p:messages autoUpdate="true" closable="true"   showDetail="false"/>
+                    <p:commandButton   value="Submit" update="@form" process="@this detailPanel" action="#{handlerCnt.updInsHandler()}">
+                        <p:resetInput  target="@form detailPanel"/>
+                    </p:commandButton>
+                    <p:commandButton   value="Cancel" update="@form,TblForm" ajax="false"  immediate="true" style="margin-left: 10%;" action="#{handlerCnt.cancelHandler()}"/> 
+                </center>
+            </p:panel>
+
+        </h:form>
+    </h:body>
+</html>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/> 
+    </h:head>
+    <h:body>
+        <p:panel  id="addnewbookpanel" rendered="#{abookCnt.processor.addNewBook}" header="Yeni Kitabça">
+            <h:panelGrid columns="4">
+                <p:selectOneRadio id="customRadio" value="#{abookCnt.processor.saveRadioType}" layout="custom">
+                    <f:selectItem itemLabel="New List" itemValue="0" /> 
+                    <f:selectItem itemLabel="Existing " itemValue="1" /> 
+                    <p:ajax  process="@this"/>
+                </p:selectOneRadio>
+
+                <h:panelGrid columns="3" cellpadding="5">
+                    <p:radioButton id="opt1" for="customRadio" itemIndex="0" />
+                    <h:outputLabel for="opt1" value="New List" />
+                    <p:inputText value="#{abookCnt.processor.newABookName}">
+                        <p:ajax event="keyup" process="@this"/>
+                    </p:inputText>
+
+                    <p:radioButton id="opt2" for="customRadio" itemIndex="1" />
+                    <h:outputLabel for="opt2" value="Existing" />
+                    <p:selectOneMenu style="width: 175px;"    value="#{abookCnt.processor.titleID}"> 
+                        <f:selectItem itemValue="0" itemLabel="Seçim et"/>
+                        <f:selectItems value="#{abookCnt.userABList}" var="cm" itemValue="#{cm.abid}" itemLabel="#{cm.name}"/>
+                        <p:ajax event="change" immediate="true" process="@this"/>
+                    </p:selectOneMenu>
+                </h:panelGrid>
+                <p:commandButton value="Import" immediate="true"  process="@form" ajax="false" style="margin-left: 30px;" action="#{abookCnt.saveAddressBook()}"/>
+                <p:commandButton value="Cancel" immediate="true"  process="@form" ajax="false" style="margin-left: 30px;" action="#{abookCnt.goBackBooks()}"/>
+             </h:panelGrid>
+        </p:panel>
+
+
+
+
+
+        <p:messages id="messages" autoUpdate="true" closable="true" showDetail="false"/> 
+        <p:dataTable id="abookEntry" rendered="#{abookCnt.processor.entryRender}"  selection="#{abookCnt.selected}"
+                     selectionMode="single"  rowKey="#{map}"  value="#{abookCnt.mttbl}" var="map">
+            <p:ajax event="rowSelect" process="@this" update="@form:detailPanel"  listener="#{abookCnt.onRowSelect}"/> 
+            <p:columns id="cols" value="#{abookCnt.columns}" var="column" columnIndexVar="colIndex" >
+                <f:facet id="facesl" name="header">  
+                    <p:outputPanel  id="opanel">
+                        <p:selectOneMenu  id="col#{column.property}" style="width: 120px;" 
+                                          rendered="#{!abookCnt.processor.typeComboRender}" value="#{column.header}"
+                                          filter="true" filterMatchMode="startsWith"> 
+                            <p:ajax listener="#{abookCnt.columnToSelect()}"/>
+                            <f:selectItem  itemValue="0" itemLabel="Seçim et"/>
+                            <f:selectItems value="#{baseCnt.colNames}" var="cm"
+                                           itemValue="#{cm.item_value}" itemLabel="#{cm.item_name}"/>
+                        </p:selectOneMenu>
+                        <h:outputText rendered="#{abookCnt.processor.typeComboRender}" value="#{column.header}"/>
+                    </p:outputPanel>  
+                </f:facet>
+                <h:outputText value="#{map[column.property]}"/>
+            </p:columns>
+        </p:dataTable>
+    </h:body>
+</html>

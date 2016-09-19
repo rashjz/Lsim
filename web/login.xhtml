@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+--> 
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/> 
+        <link rel="icon" type="image/png" href="${facesContext.externalContext.requestContextPath}/faces/resources/img/logo.png" />
+        <!--<link type="text/css" rel="stylesheet" href="$!{facesContext.externalContext.requestContextPath}/faces/resources/css/menuicon.css" />-->
+        <title>LSIM LLC</title>
+    </h:head>
+    <h:body > 
+
+        <f:view transient="true">
+            <div  id="container" align="center" style="margin: 200px"> 
+                <h:form id="LForm"  style="width: 450px;"> 
+                    <center>
+                    <p:growl  id="loginmsg"/> 
+                     <!--<h:graphicImage  value="/resources/img/blogo.png"/>--> 
+                    <p:panel  header="LSİM LLC"  style="text-align: left;background: cornflowerblue; font-weight: bold; margin-left: 10px; ">  
+                        <h:panelGrid  style="margin-left: 10px;"  columns="2"  > 
+                            <h:outputText style="color: black" value="Login" />
+                            <p:inputText id="lsimLogin" style="margin-left: 61px" required="true" requiredMessage="Login daxil edilməyib" value="#{loginCnt.user.login}"/>
+                            <h:outputText style="color: black" value="Password " />
+                            <p:password id="lsimPassw" style="margin-left: 61px" required="true" requiredMessage="Şifrə daxil edilməyib" value="#{loginCnt.user.passw}"/>
+                            <h:outputText value="" />
+                            <p:commandButton  style=" margin-top: 30px;margin-left: 170px;"  
+                                              action="#{loginCnt.checkLogin()}" update="LForm" value="Daxil ol" /> 
+                        </h:panelGrid>
+                        <p:watermark for="lsimPassw" value="Şifrəni daxil et" id="watermark" />
+                    </p:panel> 
+                    
+                        <h:graphicImage style="margin-top: 30px;" value="/resources/img/blogo.png"/> 
+                    </center>
+                    <!--<p:poll interval="1700" />san ile-->
+                </h:form>
+            </div> 
+        </f:view>
+    </h:body>
+</html>

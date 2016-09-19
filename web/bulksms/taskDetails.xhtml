@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"> 
+    <h:head> 
+        <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/> 
+    </h:head> 
+    <h:body> 
+
+        <p:tabView style="border: none;font-size: 12px;" rendered="#{bulksmsCnt.bsmsm.showDetail}">
+            <p:tab title="General Info">
+                <h:panelGrid columns="2" cellpadding="3">
+
+                    <h:outputText style="font-weight: bold" value="Rec Id:"/>
+                    <h:outputText style="margin-left: 20px;" value="#{taskCnt.bsmss.id}"/>
+
+                    <h:outputText style="font-weight: bold" value="Comments:"/>
+                    <h:outputText style="margin-left: 20px;" value="#{taskCnt.bsmss.comments}"/>
+
+                    <h:outputText style="font-weight: bold" value="Send From"/>
+                    <h:outputText style="margin-left: 20px;" value="#{taskCnt.bsmss.send_from}"/>
+
+                    <h:outputText style="font-weight: bold" value="Date Added:"/>
+                    <h:outputText style="margin-left: 20px;" value="#{taskCnt.bsmss.date_added}"/>
+
+                    <h:outputText style="font-weight: bold" value="Date Started:"/>
+                    <h:outputText style="margin-left: 20px;" value="#{taskCnt.bsmss.date_started}"/>
+
+                    <h:outputText style="font-weight: bold" value="Date Started:"/>
+                    <h:outputText style="margin-left: 20px;" value="#{taskCnt.bsmss.date_started}"/>
+
+
+                    <h:outputText style="font-weight: bold" value="Added By:"/>
+                    <h:outputText style="margin-left: 20px;" value="#{taskCnt.bsmss.added_by}"/>
+
+                    <h:outputText style="font-weight: bold" value="Number Count:"/>
+                    <h:outputText style="margin-left: 20px;" value="#{taskCnt.bsmss.number_count}"/>
+
+                    <h:outputText style="font-weight: bold" value="Waiting For Status:"/>
+                    <h:outputText style="margin-left: 20px;" value="#{taskCnt.bsmss.wait4status}"/>
+
+                    <h:outputText style="font-weight: bold" value="Delivered Count:"/>
+                    <h:outputText style="margin-left: 20px;" value="#{taskCnt.bsmss.delivCount}"/>
+
+                    <h:outputText style="font-weight: bold" value="unDelivered Count:"/>
+                    <h:outputText style="margin-left: 20px;" value="#{taskCnt.bsmss.unDelivCount}"/>
+
+                    <h:outputText style="font-weight: bold" value="Queued Count:"/>
+                    <h:outputText style="margin-left: 20px;" value="#{taskCnt.bsmss.queueCount}"/>
+
+
+                    <h:outputText style="font-weight: bold" value="Error Count:"/>
+                    <h:outputText style="margin-left: 20px;" value="#{taskCnt.bsmss.errorCount}"/>
+
+                    <h:outputText style="font-weight: bold" value="Black List Count:"/>
+                    <h:outputText style="margin-left: 20px;" value="#{taskCnt.bsmss.blaclListCount}"/>
+
+                    <h:outputText style="font-weight: bold" value="Started:"/>
+                    <h:outputText style="margin-left: 20px;" value="#{taskCnt.bsmss.started}"/>
+
+                </h:panelGrid>
+                <p:commandButton value="pause"  style="width: 60px;"  immediate="true" action="#{taskCnt.pauseTask()}"/>
+                <p:commandButton value="start"  style="width: 60px;"  immediate="true" action="#{taskCnt.startTask()}"/>
+                <p:commandButton value="resume"  style="width: 60px;" immediate="true" action="#{taskCnt.resumeTask()}"/>
+                <p:commandButton value="list"  style="width: 60px;" immediate="true"  ajax="false" onclick="updFrm()" action="#{taskCnt.listTask()}"/>
+            </p:tab>
+            <p:tab  title="Details">
+                <ui:include src="tables/detailsTable.xhtml"/>
+            </p:tab>
+            <p:tab  title="Overview">
+                <p:chart type="pie" model="#{taskCnt.pieModel}" style="width:400px;height:300px" />
+            </p:tab>
+        </p:tabView>
+
+
+
+    </h:body> 
+</html>
+

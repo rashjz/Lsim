@@ -1,0 +1,38 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html" 
+      xmlns:p="http://primefaces.org/ui" 
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head> 
+        <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+        <title>Lsim</title> 
+    </h:head> 
+    <h:body>  
+        <h:form styleClass="contAlig" rendered="#{!blackLCnt.blackListModel.upload}" id="detailForm">
+            <h:panelGrid styleClass="contAlig"  columns="1" >
+                <h:panelGrid style="font-size: 10px;" columns="4"> 
+                    <p:commandButton rendered="#{loginCnt.checkAccessFP('black_list:add')}" value="#{msg.add}" update="@form" style="margin-left: 5px;"  action="#{blackLCnt.newBL()}" /> 
+                    <p:commandButton rendered="#{loginCnt.checkAccessFP('black_list:edit')}" value="#{msg.update}" update=":TblForm" style="margin-left: 5px;"  action="#{blackLCnt.save()}" /> 
+                    <p:commandButton rendered="#{loginCnt.checkAccessFP('black_list:delete')}" value="#{msg.delete}" update=":TblForm" style="margin-left: 5px;"  action="#{blackLCnt.deleteBL()}" />
+                    <p:commandButton rendered="#{loginCnt.checkAccessFP('black_list:upload_numbers')}" value="#{msg.upload}" ajax="false" style="margin-left: 5px;"  action="#{blackLCnt.upload()}" />
+                </h:panelGrid>
+                <h:panelGrid style="margin-top: 50px;" columns="2">
+                    <h:outputText value="MSISDN"/>
+                    <p:inputText style="width: 175px;" value="#{blackLCnt.bl.msisdn}"/>     
+
+                    <h:outputText value="No sms"/>
+                    <p:selectOneMenu style="width: 175px;" value="#{blackLCnt.bl.for_bulk}">
+                        <f:selectItem itemLabel="Yes" itemValue="Yes"/>
+                        <f:selectItem itemLabel="No" itemValue="No"/>
+                    </p:selectOneMenu>
+
+                    <h:outputText value="No charge"/>
+                    <p:selectOneMenu style="width: 175px;" value="#{blackLCnt.bl.for_vas}">
+                        <f:selectItem itemLabel="Yes" itemValue="Yes"/>
+                        <f:selectItem itemLabel="No" itemValue="No"/>
+                    </p:selectOneMenu>
+                </h:panelGrid>
+            </h:panelGrid>
+        </h:form>
+    </h:body>
+</html>

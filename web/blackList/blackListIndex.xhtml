@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"> 
+    <h:head>
+        <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+        <link rel="icon" type="image/png" href="${facesContext.externalContext.requestContextPath}/faces/resources/img/logo.png" />
+        <title>Lsim</title>
+        <f:event listener="#{loginCnt.hasAccess}" type="preRenderView" /> 
+        <style type="text/css">
+            .contAlig td {
+                vertical-align: top;
+            }
+        </style>
+    </h:head>
+
+    <h:body style="font-size: 12px;"> 
+        <f:view locale="#{lang.language}">
+            <p:layout fullPage="true">
+
+                <p:layoutUnit position="north" size="55" resizable="true" closable="true" collapsible="true">
+                    <ui:include  src="../webbanner/banner.xhtml"/> 
+                </p:layoutUnit>
+
+                <p:layoutUnit  position="south" size="40" closable="true" collapsible="true">
+                    <ui:include src="../webbanner/footer.xhtml"/>
+                </p:layoutUnit>
+
+                <!--                <p:layoutUnit style="border: none;overflow:hidden !important;"  position="west" size="75%"  > 
+                                    <ui:include  src="blackListTable.xhtml"/>
+                                </p:layoutUnit>
+                
+                
+                                <p:layoutUnit  size="600" minSize="600" position="center"> 
+                                    <ui:include  src="blackListDetail.xhtml"/> 
+                                </p:layoutUnit>-->
+                <p:layoutUnit   size="80%" style="border: none;"  position="center"> 
+                    <h:panelGrid styleClass="contAlig" columns="4">
+                        <h:panelGrid   columns="1">
+                            <ui:include src="upload.xhtml"/>
+                            <ui:include  src="blackListTable.xhtml"/>
+                            
+                        </h:panelGrid>
+                        <ui:include  src="blackListDetail.xhtml"/> 
+                    </h:panelGrid>
+
+                </p:layoutUnit>
+
+            </p:layout> 
+        </f:view>
+    </h:body> 
+</html>
+

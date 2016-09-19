@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head> 
+        <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+        <title>Lsim</title> 
+        <style type="text/css">
+            .inputDate input {
+                width: 150px !important;
+            }
+        </style>
+    </h:head> 
+    <h:body> 
+        <h:form   id="TblForm">
+            <center>
+                <ui:include  src="scheduledDetail.xhtml"/>
+
+
+
+                <p:dataTable id="transListTbl"   var="sms" style="width: 80%;font-size: 12px;" value="#{scheduleCnt.scheduledModel.scheduledList}"  
+                             rows="40"  widgetVar="myTblWidget" paginator="true" rowsPerPageTemplate="20,50,100,200" 
+                             rowKey="#{sms.rec_id}"  emptyMessage="Uyğun müəlumat tapılmadı"
+                             paginatorTemplate="{CurrentPageReport} {PreviousPageLink} {PageLinks} {NextPageLink} {RowsPerPageDropdown}" >
+
+                    <p:column     headerText="rec_id"> 
+                        <h:outputText value="#{sms.rec_id}" />
+                    </p:column>  
+                    <p:column     headerText="sendFrom"> 
+                        <h:outputText value="#{sms.sendFrom}" />
+                    </p:column>  
+                    <p:column     headerText="dateAdded"> 
+                        <h:outputLabel id="dateAdded" value="#{sms.dateAdded}" style="width: 90px">
+                            <f:convertDateTime pattern="dd.MM.yyyy HH:mm:ss"/>
+                        </h:outputLabel>  
+                    </p:column>  
+                    <p:column    headerText="dateStarted">  
+                        <h:outputLabel id="dateStarted" value="#{sms.dateStarted}" style="width: 90px">
+                            <f:convertDateTime pattern="dd.MM.yyyy HH:mm:ss"/>
+                        </h:outputLabel>
+                    </p:column>  
+                    <p:column     headerText="addedBy"> 
+                        <h:outputText value="#{sms.addedBy}" />
+                    </p:column> 
+                    <p:column    headerText="numberCount"> 
+                        <h:outputText value="#{sms.numberCount}" />
+                    </p:column> 
+                    <p:column   headerText="sendType"> 
+                        <h:outputText value="#{sms.sendType}" />
+                    </p:column>
+                    <p:column  headerText="periodType"> 
+                        <h:outputText value="#{sms.periodType}" />
+                    </p:column>  
+                </p:dataTable>
+
+                <!--            <p:blockUI block="@form:transListTbl"  trigger="@form:searchBtn">
+                                YÜKLƏNİR<br/>
+                                <p:graphicImage  name="img/ajax-loader.gif" />
+                            </p:blockUI>-->
+            </center>
+        </h:form>
+    </h:body>
+</html>

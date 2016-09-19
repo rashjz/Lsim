@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<faces-config version="2.2"
+              xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+    <lifecycle>
+        <!--<phase-listener id="TimeOutListener">send.sms.az.listener.TimeOutListener</phase-listener>-->
+    </lifecycle>
+<!--    <application>
+
+    </application>-->
+        
+    <application>
+        
+        <action-listener>org.primefaces.application.DialogActionListener</action-listener>
+        <navigation-handler>org.primefaces.application.DialogNavigationHandler</navigation-handler>
+        <view-handler>org.primefaces.application.DialogViewHandler</view-handler>
+        
+        
+        <locale-config>
+            <default-locale>az</default-locale>
+            <supported-locale>en</supported-locale>
+            <supported-locale>ru</supported-locale>
+        </locale-config>
+        <message-bundle>send.sms.az.msg.Message</message-bundle>
+        <resource-bundle>
+            <base-name>send.sms.az.msg.Message</base-name>
+            <var>msg</var>
+        </resource-bundle>
+    </application>
+    
+   <factory>
+        <exception-handler-factory>
+            send.sms.az.listener.CustomExceptionHandlerFactory
+        </exception-handler-factory>
+    </factory>
+</faces-config>

@@ -1,0 +1,66 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <!--<title>Facelet Title</title>-->
+        <style type="text/css">
+            ui-selectonemenu-item ui-selectonemenu-list-item ui-corner-all{
+                font-size: 12px !important;
+            } 
+        </style>
+    </h:head> 
+    <h:body>
+        <center>
+            <h:panelGrid rendered="#{abookCnt.processor.editData}" columns="4">
+                <p:commandButton rendered="#{loginCnt.checkAccessFP('bulk_sms_addr_book_entry:add')}"  immediate="true" process="@this" update="@form:detailPanel"  action="#{abookCnt.newEntryData()}"  value="#{msg.add}"     />
+                <p:commandButton rendered="#{loginCnt.checkAccessFP('bulk_sms_addr_book_entry:edit')}" style="margin-left: 5%"  ajax="false" update="@form" action="#{abookCnt.saveEntryData()}" value="#{msg.update}"  />
+                <p:commandButton rendered="#{loginCnt.checkAccessFP('bulk_sms_addr_book_entry:delete')}" style="margin-left: 5%" value="#{msg.delete}" action="#{abookCnt.deleteEntryData()}" update="@form" ajax="false"  />
+                <p:commandButton style="margin-left: 5%" value="#{msg.back}" action="#{abookCnt.goBackBooks()}" update="@form" ajax="false" />
+            </h:panelGrid>
+
+            <p:panel rendered="#{abookCnt.processor.editData}" style="margin-top: 20px;margin-bottom: 10px;width: 500px" id="detailPanel">
+
+                <h:panelGrid    columns="4">
+                    <h:outputText value="Telefon nömrəsi "/>
+                    <p:inputText converterMessage="Mobil nömrə yalnış daxil edilib" value="#{abookCnt.processor.saveData.msisdn}">
+                        <p:ajax event="keyup" process="@this"/>
+                    </p:inputText>
+
+                    <h:outputText value="Doğum Tarixi"/>
+                    <p:calendar  pattern="dd.MM.yyyy" value="#{abookCnt.processor.saveData.bdate}">
+                        <p:ajax event="keyup" process="@this"/>
+                    </p:calendar>
+
+                    <h:outputText value="Ad"/>
+                    <p:inputText value="#{abookCnt.processor.saveData.name}">
+                        <p:ajax event="keyup" process="@this"/>
+                    </p:inputText>
+
+                    <h:outputText value="Əlavə Tarixi 1"/>
+                    <p:calendar  pattern="dd.MM.yyyy" value="#{abookCnt.processor.saveData.addDate1}">
+                        <p:ajax event="keyup" process="@this"/>
+                    </p:calendar>
+
+                    <h:outputText value="Soyad"/>
+                    <p:inputText value="#{abookCnt.processor.saveData.surname}">
+                        <p:ajax event="keyup" process="@this"/>
+                    </p:inputText>
+
+                    <h:outputText value="Əlavə Tarixi 2"/>
+                    <p:calendar pattern="dd.MM.yyyy" value="#{abookCnt.processor.saveData.addDate2}">
+                        <p:ajax event="keyup" process="@this"/>
+                    </p:calendar>
+
+                    <h:outputText value="Qeyd"/>
+                    <p:inputText value="#{abookCnt.processor.saveData.note}">
+                        <p:ajax event="keyup" process="@this"/>
+                    </p:inputText>
+                </h:panelGrid>
+            </p:panel>
+
+
+        </center>
+    </h:body> 
+</html>

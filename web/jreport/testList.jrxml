@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="330" pageHeight="622" columnWidth="330" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="8535cb02-29e6-47a6-af5c-039bad987a22">
+	<property name="ireport.zoom" value="3.797498335832415"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="net.sf.jasperreports.export.xls.ignore.cell.background" value="false"/>
+	<parameter name="sqlQuery" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[$P!{sqlQuery}]]>
+	</queryString>
+	<field name="rec_id" class="java.lang.String"/>
+	<field name="msisdn" class="java.lang.String"/>
+	<field name="for_vas" class="java.lang.String"/>
+	<field name="for_bulk" class="java.lang.String"/>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="9568b50c-4628-424a-901d-4c92a964b3b1" mode="Transparent" x="0" y="0" width="51" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<paragraph spacingAfter="1"/>
+				</textElement>
+			</textField>
+			<textField>
+				<reportElement uuid="8cd1c45d-8462-4f17-a3d4-f4fe8a07e66f" mode="Transparent" x="202" y="0" width="65" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<paragraph spacingAfter="1"/>
+				</textElement>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement uuid="088bd474-76d8-4477-99c1-65d4d3cad919" mode="Transparent" x="51" y="0" width="151" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isStrikeThrough="false"/>
+					<paragraph spacingAfter="1"/>
+				</textElement>
+			</textField>
+			<textField>
+				<reportElement uuid="3fca3396-6b7b-4ce9-92aa-211653cb0aff" mode="Transparent" x="267" y="0" width="63" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<paragraph spacingAfter="1"/>
+				</textElement>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

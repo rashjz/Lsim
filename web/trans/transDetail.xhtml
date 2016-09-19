@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html" 
+      xmlns:p="http://primefaces.org/ui" 
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head> 
+        <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+        <title>Lsim</title> 
+    </h:head> 
+    <h:body style="font-size: 11px;">  
+        <p:panel style="border: none" header="Axtarış">
+            <center>
+                <h:panelGrid columns="5">             
+                    <h:outputText value="#{msg.transType}"/>
+                    <h:outputText value="MSISDN"/>
+                    <h:outputText value="#{msg.shortNum}"/>
+                    <h:outputText value="#{msg.operator}"/>
+                    <h:outputText value="#{msg.hostName}"/>
+                    <p:selectCheckboxMenu style="width: 160px" id="transTypeCombo" filter="true" filterMatchMode="startsWith" label="Transaction  Type" value="#{transCnt.tranMod.selectedTypes}">
+                        <!--<p:ajax event="change" update="@form:righttabs" process="@this" listener="{detailCnt.panelChecker()}"/>-->
+                        <f:selectItem   itemLabel="Incoming SMS" itemValue="1"/>
+                        <f:selectItem   itemLabel="Outgoing SMS" itemValue="2"/>
+                        <f:selectItem   itemLabel="Charging" itemValue="3"/> 
+                        <p:ajax event="change" update="resultList" />
+                    </p:selectCheckboxMenu>
+                    <p:inputText style="width:150px;" value="#{transCnt.tranMod.search.msisdn}"/>
+                    <p:selectCheckboxMenu  id="shortNMBCombo" style="width: 160px;" label="Short Number" filter="true" filterMatchMode="startsWith"  value="#{transCnt.tranMod.selectedShortNum}"> 
+                        <f:selectItems value="#{baseCnt.shortNumList}" />
+                    </p:selectCheckboxMenu>
+                    <p:selectOneMenu style="width: 160px;"  value="#{transCnt.tranMod.search.operator_name}">
+                        <f:selectItem   itemLabel="Not Selected" itemValue="0"/>
+                        <f:selectItems var="op" value="#{baseCnt.operatorList}"  itemLabel="#{op}" itemValue="#{op}"/>
+                        <p:ajax event="change"   process="@this"/>
+                    </p:selectOneMenu>
+                    <p:selectOneMenu style="width: 160px;" filter="true" filterMatchMode="startsWith" value="#{transCnt.tranMod.search.host_name}">
+                        <f:selectItem   itemLabel="Not Selected" itemValue="0"/>
+                        <f:selectItems var="host" value="#{baseCnt.hostList}"  itemLabel="#{host.host_name}" itemValue="#{host.host_item}"/>
+                        <p:ajax event="change"   process="@this"/>
+                    </p:selectOneMenu>
+
+
+
+
+                    <h:outputText value="#{msg.client}"/> 
+                    <h:outputText value="#{msg.result}"/>
+                    <h:outputText value="#{msg.from}"/>
+                    <h:outputText value="#{msg.to}"/> 
+                    <h:outputText value="appname"/>
+                    <p:selectOneMenu style="width: 160px;" filter="true" filterMatchMode="startsWith"  value="#{transCnt.tranMod.search.client}">
+                        <f:selectItem   itemLabel="Not Selected" itemValue="0"/>
+                        <f:selectItems var="cli" value="#{baseCnt.clientList}"  itemLabel="#{cli}" itemValue="#{cli}"/>
+                        <p:ajax event="change"   process="@this"/>
+                    </p:selectOneMenu> 
+                    <p:selectOneMenu id="resultList" style="width: 160px;"   value="#{transCnt.tranMod.search.trans_result}">
+                        <f:selectItem   itemLabel="Not Selected" itemValue="-1"/>
+                        <f:selectItems var="cli" value="#{transCnt.resultList}"  itemLabel="#{cli.result_name}" itemValue="#{cli.result_item}"/>
+                        <!--<p:ajax event="change"   process="@this"/>-->
+                    </p:selectOneMenu>
+                    <p:calendar  styleClass="inputDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{transCnt.tranMod.fromdate}" >
+                        <!--<f:convertDateTime pattern="" />-->
+                    </p:calendar>
+                    <p:calendar styleClass="inputDate" pattern="MM/dd/yyyy HH:mm:ss"  value="#{transCnt.tranMod.todate}">
+                        <!--<f:convertDateTime pattern="" />-->
+                    </p:calendar>
+                    <p:inputText style="width:150px;" value="#{transCnt.tranMod.search.app_name}">
+                        <p:ajax event="keyup" update="@form:transListTbl" process="@this"/>
+                    </p:inputText>
+
+
+
+
+                    <h:outputText value="transdesc"/>
+                    <h:outputText value=""/>
+                    <h:outputText value=""/> 
+                    <h:outputText value=""/>
+                    <h:outputText value=""/>
+                    <p:inputText style="width:150px;" value="#{transCnt.tranMod.search.trans_desc}">
+                        <p:ajax event="keyup" update="@form:transListTbl" process="@this"/>
+                    </p:inputText>
+                </h:panelGrid>
+                <p:commandButton id="searchBtn" value="#{msg.search}" update="@form:transListTbl" style="margin-left: 20px;" action="#{transCnt.searchTrans()}"/>
+                <!--<h:commandButton  value="Yukle"   style="margin-left: 20px;" actionListener="#!{transCnt.PDF}"/>-->
+            </center>
+        </p:panel>
+
+
+    </h:body>
+</html>

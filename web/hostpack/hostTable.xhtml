@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head> 
+        <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+        <title>Lsim</title> 
+    </h:head> 
+    <h:body> 
+        <center>
+            <h:form id="MainFRM">
+                <p:tabView style="width: 50%" rendered="#{hostpackCnt.model.general}" id="gridVwv" > 
+                    <p:tab   title="General Info"> 
+                        <h:panelGrid  columns="1">
+                            <h:panelGrid columns="2" cellpadding="10">
+                                <h:outputText value="Pack Id:" />
+                                <h:outputText value="#{hostpackCnt.host.item_value}"/>
+
+                                <h:outputText value="Pack Desc:" />
+                                <h:outputText value="#{hostpackCnt.host.item_name}"/>
+                            </h:panelGrid> 
+                            <h:panelGrid columns="4">
+                                <p:commandButton value="List" ajax="false" update=":editHostFrm,@form" action="#{hostpackCnt.hostList()}"/>
+                                <p:commandButton value="Add" action="#{hostpackCnt.editHost('ins')}" update=":editHostFrm,@form"/>
+                                <p:commandButton value="Edit" ajax="false" action="#{hostpackCnt.editHost('upd')}" update=":editHostFrm,@form"/>
+                                <p:commandButton value="Delete" />
+                            </h:panelGrid>
+                        </h:panelGrid>
+                    </p:tab>
+
+                    <!--<h:form id="packFrm">-->
+                    <p:tab  id="packTab" title="Host Packs"> 
+                        <p:dataTable rendered="#{hostpackCnt.model.packList}"  var="ht" style="width: 30%" value="#{hostpackCnt.postpackList}"  >
+                            <!--<p:ajax event="rowSelect" listener="#!{menuCnt.listener()}" update=":detailForm"/>-->
+                            <p:column  headerText=" host name  "> 
+                                <h:outputText value="#{ht.host_name}" />
+                            </p:column> 
+                            <p:column  headerText=" op name  "> 
+                                <h:outputText value="#{ht.op_name}" />
+                            </p:column> 
+                            <p:column style="width: 20%" headerText=""> 
+                                <h:commandLink value="Edit" actionListener="#{hostpackCnt.editPack(ht)}" />
+                            </p:column> 
+                        </p:dataTable> 
+
+                        <p:panel id="packEditor" rendered="#{hostpackCnt.model.packEdit}"  header=" Edit - Host">
+                            <h:panelGrid columns="2">
+                                <h:outputText value="Host Name *" /> 
+                                <p:selectOneMenu value="#{hostpackCnt.hpackHosts.host_name}" >
+                                    <f:selectItems value="#{baseCnt.hostValList}" var="data" itemValue="#{data.item_value}" itemLabel="#{data.item_name}"/>
+                                    <p:ajax event="change" process="@this"/>
+                                </p:selectOneMenu> 
+                                <h:outputText value="Operator Name *" />  
+                                <p:selectOneMenu value="#{hostpackCnt.hpackHosts.op_name}"  >
+                                    <f:selectItems value="#{baseCnt.mobOperatorList}" var="op" itemValue="#{op.item_value}" itemLabel="#{op.item_name}"/>
+                                    <p:ajax event="change" process="@this"/>
+                                </p:selectOneMenu> 
+                                <h:outputText value="" />
+                                <p>
+                                <p:commandButton process="@form packEditor" immediate="true" action="#{hostpackCnt.saveEditedPack()}" value="Submit"/>
+                                <p:commandButton value="Cancel" immediate="true" update="@form:gridVwv" action="#{hostpackCnt.hostView()}" />
+                                </p>
+                            </h:panelGrid>
+                        </p:panel>
+
+                    </p:tab>
+                    <!--</h:form>-->
+                </p:tabView>
+            </h:form>
+
+
+
+
+            <h:form id="editHostFrm">
+                <p:panel style="width: 30%" rendered="#{hostpackCnt.model.hostEdit}" header="Edit Host Details">
+                    <h:panelGrid  columns="4"> 
+                        <h:outputText value="Pack Name"/>
+                        <p:inputText value="#{hostpackCnt.host.item_name}"/> 
+
+                        <p:commandButton value="Submit" process="@form" update=":TblForm,@form" action="#{hostpackCnt.editHost('')}"/>
+                        <p:commandButton value="Cancel" immediate="true" process="@this"  update=":TblForm,@form" action="#{hostpackCnt.hostList()}"/> 
+                    </h:panelGrid>
+                </p:panel>
+            </h:form>
+
+
+
+            <h:form id="TblForm">
+                <p:dataTable style="width: 30%" rendered="#{hostpackCnt.model.table}" var="hst" value="#{baseCnt.hostValList}"  
+                             rowIndexVar="rowIndex" rowKey="#{hst.item_value}" >
+                    <!--<p:ajax event="rowSelect" update="@all" listener="#!{hostpackCnt.rowSelListener()}" />-->
+                    <p:column filterBy="#{hst.item_name}" headerText="Pack Desc"> 
+                        <h:outputText value="#{hst.item_name}" /> 
+                    </p:column> 
+                    <p:column style="width: 13%" headerText="   "> 
+                        <h:commandLink value="Redaktə" onclick="updateoFRM()" action="#{hostpackCnt.rowSelListener(hst)}">
+                            <!--<f:ajax  render="@form :MainFRM" />-->
+                        </h:commandLink>
+                    </p:column> 
+                </p:dataTable>
+
+
+
+
+                <p:remoteCommand name="updateoFRM"  update="@form :MainFRM :editHostFrm"/>
+            </h:form>
+
+        </center>
+    </h:body>
+</html>

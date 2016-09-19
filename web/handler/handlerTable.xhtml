@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head> 
+        <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+        <title>Lsim</title> 
+        <style type="text/css">
+            .inputDate input {
+                width: 150px !important;
+            }
+            .ui-widget-content{
+                color: black !important;
+            }
+        </style>
+    </h:head> 
+    <h:body> 
+        <h:form id="TblForm"> 
+           
+            <p:panel id="panel" style="border: none">
+                <h:panelGrid  rendered="#{handlerCnt.model.tooBar}" cellpadding="5" columns="3">
+                    <p:commandButton   value="Add" update="@form,:detForm" ajax="false" style="margin-left: 20px;" action="#{handlerCnt.addHandler()}"/> 
+                    <p:commandButton   value="Edit" update="@form,:detForm" ajax="false" style="margin-left: 20px;" action="#{handlerCnt.editHandler()}"/> 
+                    <p:commandButton   value="Delete"  update="@form" ajax="false" style="margin-left: 20px;" action="#{handlerCnt.deleteHandler()}"/> 
+                </h:panelGrid>
+                <p:messages rendered="#{handlerCnt.model.tblList}" autoUpdate="true" closable="true"   showDetail="false"/>
+            </p:panel>
+            <p:dataTable rendered="#{handlerCnt.model.tblList}" id="transListTbl"   var="dc"  value="#{handlerCnt.diameterList}"   style="color: black;"
+                         rows="20"  widgetVar="myTblWidget" paginator="true" rowsPerPageTemplate="20,50,100,200" 
+                         emptyMessage="Uyğun müəlumat tapılmadı" selection="#{handlerCnt.handler}" selectionMode="single" rowIndexVar="rowIndex" rowKey="#{dc.handler_id}" 
+                         paginatorTemplate="{CurrentPageReport} {PreviousPageLink} {PageLinks} {NextPageLink} {RowsPerPageDropdown}" >
+                <p:ajax event="rowSelect" listener="#{handlerCnt.listener()}"  />
+                <p:column  sortBy="#{dc.handler_name}"  headerText="handler name"> 
+                    <h:outputText value="#{dc.handler_name}" />
+                </p:column>
+                <p:column   sortBy="#{dc.hostname}" style="width: 90px;"  headerText="hostname"> 
+                    <h:outputText value="#{dc.hostname}"/>  
+                </p:column>   
+                <p:column sortBy="#{dc.a_num}" style="width: 90px;" headerText="a_num"> 
+                    <h:outputText value="#{dc.a_num}" />
+                </p:column>  
+                <p:column   sortBy="#{dc.b_num}" style="width: 150px;"  headerText="b_num"> 
+                    <h:outputText value="#{dc.b_num}" />
+                </p:column>    
+                <p:column   sortBy="#{dc.content}" style="width: 150px;"  headerText="content"> 
+                    <h:outputText value="#{dc.content}" />
+                </p:column>  
+                <p:column   sortBy="#{dc.proc_name}"   headerText="proc_name"> 
+                    <h:outputText value="#{dc.proc_name}" />
+                </p:column>  
+                <p:column   sortBy="#{dc.hand_status}" style="width: 150px;"  headerText="hand_status"> 
+                    <h:outputText value="#{dc.hand_status}" />
+                </p:column>  
+                <p:column   sortBy="#{dc.pack_tarif_id}" style="width: 150px;"  headerText="pack name"> 
+                    <h:outputText value="#{dc.pack_tarif_id}" />
+                </p:column>  
+            </p:dataTable>
+
+            <!--            <p:blockUI block="@form:transListTbl"  trigger="@form:searchBtn">
+                            YÜKLƏNİR<br/>
+                            <p:graphicImage  name="img/ajax-loader.gif" />
+                        </p:blockUI>-->
+        </h:form>
+    </h:body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"> 
+    <h:head> 
+        <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/> 
+    </h:head> 
+    <h:body> 
+        <h:form> 
+            <center> 
+                <p:panel style="border: none" header="Create  Bulk SMS">
+                    <h:panelGrid columns="2">
+                        <h:outputText value="Send from"/>
+                        <p:selectOneMenu style="width: 245px;"   filter="true" filterMatchMode="startsWith" required="true" 
+                                         requiredMessage="Göndərən seçilməyib" value="#{bulksmsCnt.bsms.sendFrom}"> 
+                            <f:selectItem   itemLabel="Seçim et" itemValue="0"/>
+                            <p:ajax event="change"   process="@this" />
+                            <f:selectItems value="#{baseCnt.shortNumbers}" var="cm"  itemValue="#{cm.item_value}" itemLabel="#{cm.item_name}"/>
+                        </p:selectOneMenu>
+                        <h:outputText value="#{bulksmsCnt.bsms.sendFrom}"/>
+                        <h:panelGrid columns="2">
+                            <p:commandButton  alt="Press Numbers button to enter numbers" style="font-size: 10px;margin-bottom: 5px; text-align: center;width: 90px;background: transparent;color: red;" 
+                                              value="Add Numbers" immediate="true" process="@this" action="#{abookCnt.opentAddressBooks()}">
+                                <p:ajax event="dialogReturn" update="@form:numberCount"/>
+                            </p:commandButton> <h:outputText  id="numberCount" style="color: red;" value="Nömrə sayı : #{bulksmsCnt.bsms.numberCount}"/>
+                        </h:panelGrid>
+                        <h:outputText value="Comments"/>
+                        <p:inputTextarea style="width: 240px" value="#{bulksmsCnt.bsms.comment}"/>
+
+                        <h:outputText value=""/>
+                        <h:panelGrid columns="2">
+                            <p:commandButton style="color: red;font-size: 10px;width: 90px;font-weight: bold;background: transparent" process="@this" immediate="true" action="#{bulksmsCnt.openTempModal()}" value="Add template">
+                                <p:ajax event="dialogReturn" update="@form"/>
+                            </p:commandButton>
+                            <h:outputText id="smssize" style="color: red;font-size: 12px;" value="Message Size : #{bulksmsCnt.bsms.smsCharSize}"/>
+                        </h:panelGrid>
+
+                        <h:outputText   value="Message"/>  
+
+                        <p:inputTextarea id="bulkMsgText" style="width: 235px;height: 250px;" required="#{not empty param[sendBtnbin.clientId]}" requiredMessage="Mesaj mətni daxil edin" value="#{bulksmsCnt.bsms.message}">
+                            <p:ajax event="keyup" update="smssize" listener="#{bulksmsCnt.countCharSize()}" process="@this" />
+                        </p:inputTextarea>
+
+
+
+                        <h:outputText value="Send at"/> 
+                        <p:selectOneMenu style="width: 245px;"   value="#{bulksmsCnt.bsms.sendAt}"> 
+                            <f:selectItems var="item" value="#{baseCnt.sendtimeList}"  itemLabel="#{item.item_name}" itemValue="#{item.item_value}"/>
+                            <p:ajax event="change" immediate="true" process="@this" update="@form"/>
+                        </p:selectOneMenu>
+                        <h:outputText  rendered="#{bulksmsCnt.bsms.sendAt==2}" value="Send at"/> 
+                        <p:calendar  rendered="#{bulksmsCnt.bsms.sendAt==2}" value="#{bulksmsCnt.bsms.sendDate}" pattern="dd.MM.yyyy">
+                            <p:ajax event="dateSelect" process="@this" immediate="true"/>
+                        </p:calendar>
+                    </h:panelGrid>
+                    <p:messages id="messages" showDetail="false"  closable="true" autoUpdate="true"/>
+                    <p:commandButton rendered="#{loginCnt.checkAccessFP('bulk_sms:add')}" immediate="true" process="@this" style="margin-top: 15px;font-size: 12px;" 
+                                binding="#{sendBtnbin}"     value="#{msg.send}" action="#{bulksmsCnt.comfirmSMSsend()}"/>
+                </p:panel>
+            </center>
+        </h:form>
+    </h:body> 
+</html>
+

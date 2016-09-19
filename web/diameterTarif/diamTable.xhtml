@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head> 
+        <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+        <title>Lsim</title> 
+        <style type="text/css">
+            .inputDate input {
+                width: 150px !important;
+            }
+            .ui-widget-content{
+                color: black !important;
+            }
+        </style>
+    </h:head> 
+    <h:body> 
+        <h:form id="TblForm">
+            <ui:include  src="dtDetail.xhtml"/>
+
+            <p:messages autoUpdate="true" closable="true" showDetail="false"/>
+
+            <p:dataTable id="transListTbl"   var="dc"  value="#{dtarifCnt.diameterList}"   style="color: black;"
+                         rows="20"  widgetVar="myTblWidget" paginator="true" rowsPerPageTemplate="20,50,100,200" 
+                         emptyMessage="Uyğun müəlumat tapılmadı"
+                         paginatorTemplate="{CurrentPageReport} {PreviousPageLink} {PageLinks} {NextPageLink} {RowsPerPageDropdown}" >
+
+                <!--                <f:facet name="header">
+                                    <h:outputText value="Count : #!{transCnt.model.rowCount}" style="margin-right: 20px;"/>
+                                    Export datas to file (Excel)  
+                                    <h:commandLink style="margin-left: 20px;" action="#!@{transCnt.expXLSX()}"> 
+                                        <p:graphicImage name="/img/Excel-icon.png" /> 
+                                    </h:commandLink> 
+                                </f:facet> -->
+
+                <p:column  sortBy="#{dc.operatorName}" style="width: 120px;" headerText="Operator Name"> 
+                    <h:outputText value="#{dc.operatorName}" />
+                </p:column>
+                <p:column   sortBy="#{dc.clientName}"   headerText="Client Name"> 
+                    <h:outputText value="#{dc.clientName}"/>  
+                </p:column>   
+                <p:column sortBy="#{dc.serviceName}" style="width: 90px;" headerText="Service Name"> 
+                    <h:outputText value="#{dc.serviceName}" />
+                </p:column>  
+                <p:column   sortBy="#{dc.price}" style="width: 150px;"  headerText="Price Novat"> 
+                    <h:outputText value="#{dc.price}" />
+                </p:column>  
+            </p:dataTable>
+
+            <p:blockUI block="@form:transListTbl"  trigger="@form:searchBtn">
+                YÜKLƏNİR<br/>
+                <p:graphicImage  name="img/ajax-loader.gif" />
+            </p:blockUI>
+        </h:form>
+    </h:body>
+</html>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/> 
+        <!--<title>LSIM LLC</title>-->
+    </h:head>
+    <h:body>
+        <p:dataTable id="userBooksTbl" var="book" style="font-size: 12px;width: 350px;"   value="#{abookCnt.userABList}"  rendered="#{abookCnt.processor.abookRender}" 
+                     rows="20"      emptyMessage="Uyğun müəlumat tapılmadı" editable="true">
+            <!--<p:ajax event="rowSelect"  listener="#!{abookCnt.tableListener()}" update="@form"  />-->
+            <p:ajax event="rowEdit" listener="#{abookCnt.onRowEdit}" update="@form:userBooksTbl"/>
+            <p:ajax event="rowEditCancel" listener="#{abookCnt.onRowCancel}"  />
+            <f:facet name="header">
+                Users address books
+                <h:commandLink style="margin-left: 20px;"> 
+                    <p:graphicImage name="/img/Excel-icon.png" />
+                    <p:dataExporter type="xls" target="userBooksTbl" pageOnly="true" fileName="AddressBook" />
+                </h:commandLink>
+                <h:commandLink style="margin-left: 5px;"> 
+                    <p:graphicImage name="/img/PDF-icon.png" />
+                    <p:dataExporter type="pdf" target="userBooksTbl" pageOnly="true" fileName="AddressBook" />
+                </h:commandLink>
+            </f:facet>
+            <p:column   headerText="Table names">
+                <p:cellEditor> 
+                    <f:facet name="output"><h:outputText  value="#{book.name}" /></f:facet>
+                    <f:facet name="input">
+                        <p:inputText  value="#{book.name}" style="width:100%" label="name">
+                            <p:ajax event="keyup" process="@this"/>
+                        </p:inputText>
+                    </f:facet> 
+                </p:cellEditor>
+            </p:column>
+            <p:column style="width:32px">
+                <p:rowEditor />
+            </p:column>
+            <p:column  rendered="#{!abookCnt.processor.bulksms and loginCnt.checkAccessFP('bulk_sms_addr_book:delete')}" exportable="false" style="width: 32px;" headerText=""> 
+                <p:commandButton value="sil" action="#{abookCnt.deleteABook(book.abid)}" update="@form:userBooksTbl"/>
+            </p:column> 
+            <p:column  rendered="#{!abookCnt.processor.bulksms and loginCnt.checkAccessFP('bulk_sms_addr_book:view')}"  exportable="false" style="width: 40px;" headerText=""> 
+                <p:commandButton value="Sec" ajax="false" update="@form"  action="#{abookCnt.tableListener(book.abid)}" />
+            </p:column> 
+            <p:column exportable="false"   rendered="#{abookCnt.processor.bulksms}" style="width: 60px;" headerText=""> 
+                <p:commandButton value="Yukle" ajax="false" update="@form"  action="#{abookCnt.sendBULKfromAddr(book.abid)}" />
+            </p:column> 
+        </p:dataTable>
+
+    </h:body>
+</html>

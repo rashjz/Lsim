@@ -1,0 +1,25 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html" 
+      xmlns:p="http://primefaces.org/ui" 
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head> 
+        <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+        <title>Lsim</title> 
+    </h:head> 
+    <h:body>  
+        <h:form id="detailForm">
+            <h:panelGrid columns="3"> 
+                <p:commandButton rendered="#{loginCnt.checkAccessFP('bulk_sms_balance:edit')}" value="Yaddaşa" update=":TblForm" style="margin-left: 30px;"  action="#{balanceCnt.save()}" /> 
+            </h:panelGrid>
+            <h:panelGrid style="margin-top: 50px;" columns="2">
+                <h:outputText value="Balance"/>
+                <p:inputText  value="#{balanceCnt.balance.balance}"/>  
+
+                <h:outputText value="Comment"/>
+                <p:inputText   value="#{balanceCnt.balance.comment}"/>   
+            </h:panelGrid>
+
+        </h:form>
+    </h:body>
+</html>

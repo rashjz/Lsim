@@ -1,0 +1,27 @@
+    <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html" 
+      xmlns:p="http://primefaces.org/ui" 
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head> 
+        <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+        <title>Lsim</title> 
+    </h:head> 
+    <h:body style="font-size: 11px;">  
+        <p:panel style="border: none" header="Axtarış">
+            <center>
+                <h:panelGrid columns="3">
+                    <h:outputText value="#{msg.from}"/>
+                    <h:outputText value="#{msg.to}"/>
+                    <h:outputText value=""/>
+                    <p:calendar pattern="dd.MM.yyyy" value="#{scheduleCnt.scheduledModel.fromDate}"/>
+                    <p:calendar pattern="dd.MM.yyyy"  value="#{scheduleCnt.scheduledModel.toDate}"/>
+                    <p:commandButton id="searchBtn" value="#{msg.search}" update="@form:transListTbl" style="margin-left: 20px;" action="#{scheduleCnt.search()}"/>
+                </h:panelGrid> 
+                <p:messages autoUpdate="true" showDetail="false" closable="true"/>
+            </center>
+        </p:panel>
+
+
+    </h:body>
+</html>

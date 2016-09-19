@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head> 
+        <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+        <title>Lsim</title> 
+    </h:head> 
+    <h:body>
+        <h:form id="TblForm">
+            <ui:include src="../taskDetails.xhtml"/>
+            <p:dataTable style="font-size: 11px;" var="sms" rendered="#{!bulksmsCnt.bsmsm.showDetail}"  value="#{bulksmsCnt.model}" lazy="true"
+                         rows="40"  widgetVar="myTblWidget" paginator="true" rowsPerPageTemplate="20,50,100,200" id="blacklisttable"
+                         rowIndexVar="rowIndex" rowKey="#{sms.id}"  emptyMessage="Uyğun müəlumat tapılmadı"
+                         paginatorTemplate="{CurrentPageReport} {PreviousPageLink} {PageLinks} {NextPageLink} {RowsPerPageDropdown}" >
+
+                <!--<p:ajax event="rowSelect" listener="{smstmpCnt.listener()}" update=":detailForm"/>-->
+                <p:column headerText="Comments"> 
+                    <h:outputText value="#{sms.comments}" />
+                </p:column>  
+                <p:column  headerText="Send from"> 
+                    <h:commandLink   onclick="updFrm()" value="#{sms.send_from}" action="#{taskCnt.recDetails(sms)}">
+                        <!--<f:ajax  render="@form" />-->
+                        <!--<p:ajax update="@form"  process="@this"/>-->
+                    </h:commandLink>
+                </p:column>  
+                <p:column   headerText="Date Added"> 
+                    <h:outputText value="#{sms.date_added}" />
+                </p:column>  
+                <p:column  headerText="Date Started"> 
+                    <h:outputText value="#{sms.date_started}"/>
+                </p:column>  
+                <p:column   headerText="Added by"> 
+                    <h:outputText value="#{sms.added_by}" />
+                </p:column>  
+                <p:column headerText="Count"> 
+                    <h:outputText value="#{sms.number_count}" />
+                </p:column> 
+                <p:column  headerText="Wait For Status"> 
+                    <h:outputText value="#{sms.wait4status}" />
+                </p:column>
+                <p:column  headerText="Delivery Count"> 
+                    <h:outputText value="#{sms.delivCount}" />
+                </p:column> 
+                <p:column headerText="Undelivery Count"> 
+                    <h:outputText value="#{sms.unDelivCount}" />
+                </p:column> 
+                <p:column  headerText="Queue Count"> 
+                    <h:outputText value="#{sms.queueCount}" />
+                </p:column> 
+                <p:column  headerText="Error Count"> 
+                    <h:outputText value="#{sms.errorCount}" />
+                </p:column> 
+                <p:column   headerText="BlackList Count"> 
+                    <h:outputText value="#{sms.blaclListCount}" />
+                </p:column> 
+                <p:column headerText="Started"> 
+                    <h:outputText value="#{sms.started}" />
+                </p:column>
+            </p:dataTable>
+              <!--<h:outputScript library="javascript" name="jsf.js" target="head" />-->
+              
+              <p:remoteCommand name="updFrm" update="@form"/>
+        </h:form>
+      
+    </h:body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html" 
+      xmlns:p="http://primefaces.org/ui" 
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head> 
+        <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+        <title>Lsim</title> 
+    </h:head> 
+    <h:body style="font-size: 11px;">  
+        <p:panel style="border: none" header="Axtarış">
+            <center>
+                <h:panelGrid columns="5">              
+                    <h:outputText value="MSISDN"/>
+                    <h:outputText value="Tarif"/>
+                    <h:outputText value="Answer"/>
+                    <h:outputText value="From"/>
+                    <h:outputText value="To"/>
+
+                    <p:inputText   value="#{diameterCnt.chargeModel.msisdn}"/>
+
+                    <p:selectOneMenu style="width: 160px;"  value="#{diameterCnt.chargeModel.packID}">
+                        <f:selectItem   itemLabel="Not Selected" itemValue="0"/>
+                        <f:selectItems var="op" value="#{baseCnt.tarifPackss}"  itemLabel="#{op.item_name}" itemValue="#{op.item_value}"/>
+                        <p:ajax event="change"   process="@this"/>
+                    </p:selectOneMenu>
+                    <p:selectOneMenu style="width: 160px;"  value="#{diameterCnt.chargeModel.codeID}">
+                        <f:selectItem   itemLabel="Not Selected" itemValue="-1"/>
+                        <f:selectItems var="op" value="#{baseCnt.diameterResponseCodes}"  itemLabel="#{op.item_name}" itemValue="#{op.item_value}"/>
+                        <p:ajax event="change"   process="@this"/>
+                    </p:selectOneMenu>
+                    <p:calendar  styleClass="inputDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{diameterCnt.chargeModel.startDate}" >
+                        <!--<f:convertDateTime pattern="" />-->
+                    </p:calendar>
+                    <p:calendar  styleClass="inputDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{diameterCnt.chargeModel.endDate}" >
+                        <!--<f:convertDateTime pattern="" />-->
+                    </p:calendar>
+                </h:panelGrid>              
+
+                <p:commandButton id="searchBtn" value="#{msg.search}" update="@form:transListTbl" style="margin-left: 20px;" action="#{diameterCnt.searchDiameterCharge()}"/>
+
+            </center>
+        </p:panel>
+
+
+    </h:body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html" 
+      xmlns:p="http://primefaces.org/ui" 
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head> 
+        <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+        <title>Lsim</title> 
+    </h:head> 
+    <h:body style="font-size: 11px;">    
+        <!--<h:form id="detailForm">-->
+        <p:panel id="details" style="border: none;width: 700px;" header="Add new - Subscription">
+
+                <h:panelGrid cellpadding="5" columns="4">             
+                    <h:outputText value="Name "/>
+                    <p:inputText value="#{subscribeCnt.subscribe.subs_name}"/>
+                    <h:outputText value="Description"/>
+                    <p:inputText value="#{subscribeCnt.subscribe.subs_desc}"/>  
+                    <h:outputText value="Status"/>
+                    <p:inputText value="#{subscribeCnt.subscribe.status}"/>  
+                    <h:outputText value="Selection algorithm"/>
+                    <p:selectOneMenu style="width: 170px;"  value="#{subscribeCnt.subscribe.selection_algorithm}">
+                        <f:selectItem   itemLabel="Not Selected" itemValue="0"/>
+                        <f:selectItem   itemLabel="Next unsent" itemValue="1"/>
+                        <f:selectItem   itemLabel="Random unsent" itemValue="2"/>
+                        <p:ajax event="change"   process="@this"/>
+                    </p:selectOneMenu>
+                    <h:outputText value="Select max days back"/>
+                    <p:inputText value="#{subscribeCnt.subscribe.selection_max_days_back}"/>  
+                    <h:outputText value="Welcome message"/>
+                    <p:inputText value="#{subscribeCnt.subscribe.welcome_message}"/> 
+                    <h:outputText value="Welcome message2"/>
+                    <p:inputText value="#{subscribeCnt.subscribe.welcome_message2}"/> 
+                    <h:outputText value="Info  message"/>
+                    <p:inputText value="#{subscribeCnt.subscribe.info_message}"/> 
+                    <h:outputText value="Goodbye  message"/>
+                    <p:inputText value="#{subscribeCnt.subscribe.goodbye_message}"/> 
+                    <h:outputText value="Already member message"/> 
+                    <p:inputText value="#{subscribeCnt.subscribe.already_member_message}"/> 
+                </h:panelGrid>              
+
+                <p:commandButton id="insBtn" value="#{msg.add}" process="@this" immediate="true" update="@form:details" style="margin-left: 20px;" action="#{subscribeCnt.insertSubs()}"/>
+                <p:commandButton  id="updBtn" value="#{msg.update}" update="@form:transListTbl" style="margin-left: 20px;" action="#{subscribeCnt.updateSubs()}"/>
+
+            </p:panel>
+
+        <!--</h:form>-->
+    </h:body>
+</html>

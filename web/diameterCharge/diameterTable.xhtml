@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head> 
+        <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+        <title>Lsim</title> 
+        <style type="text/css">
+            .inputDate input {
+                width: 150px !important;
+            }
+            .ui-widget-content{
+                color: black !important;
+            }
+        </style>
+    </h:head> 
+    <h:body> 
+        <h:form id="TblForm">
+            <ui:include  src="diameterDetail.xhtml"/>
+
+            <p:messages autoUpdate="true" closable="true" showDetail="false"/>
+
+            <p:dataTable id="transListTbl"   var="dc"  value="#{diameterCnt.model}" lazy="true" style="color: black;"
+                         rows="20"  widgetVar="myTblWidget" paginator="true" rowsPerPageTemplate="20,50,100,200" 
+                         rowKey="#{dc.id}"  emptyMessage="Uyğun müəlumat tapılmadı"
+                         paginatorTemplate="{CurrentPageReport} {PreviousPageLink} {PageLinks} {NextPageLink} {RowsPerPageDropdown}" >
+
+                <!--                <f:facet name="header">
+                                    <h:outputText value="Count : #!{transCnt.model.rowCount}" style="margin-right: 20px;"/>
+                                    Export datas to file (Excel)  
+                                    <h:commandLink style="margin-left: 20px;" action="#!@{transCnt.expXLSX()}"> 
+                                        <p:graphicImage name="/img/Excel-icon.png" /> 
+                                    </h:commandLink> 
+                                </f:facet> -->
+
+                <p:column  sortBy="#{dc.msisdn}" style="width: 120px;" headerText="MSISDN"> 
+                    <h:outputText value="#{dc.msisdn}" />
+                </p:column>
+                <p:column   sortBy="#{dc.dateAdded}"   headerText="Date Added"> 
+                    <h:outputText value="#{dc.dateAdded}">
+                        <f:convertDateTime pattern="yyyy-MM-dd HH:mm:ss" />
+                    </h:outputText> 
+                </p:column>  
+                <p:column  sortBy="#{dc.dateProcessed}"  headerText="Date Processed"> 
+                    <h:outputText value="#{dc.dateProcessed}">
+                        <f:convertDateTime pattern="yyyy-MM-dd HH:mm:ss" />
+                    </h:outputText> 
+                </p:column>  
+                <p:column  sortBy="#{dc.dateSend}" headerText="Date Send"> 
+                    <h:outputText value="#{dc.dateSend}" />
+                </p:column>  
+                <p:column sortBy="#{dc.operatorName}" style="width: 90px;" headerText="Operator Name"> 
+                    <h:outputText value="#{dc.operatorName}" />
+                </p:column>  
+                <p:column   sortBy="#{dc.tarifName}" style="width: 150px;"  headerText="Tarif Name"> 
+                    <h:outputText value="#{dc.tarifName}" />
+                </p:column> 
+                <p:column  sortBy="#{dc.tarifPriceNovat}"  style="width: 40px;"  headerText="Tarif Price Novat"> 
+                    <h:outputText value="#{dc.tarifPriceNovat}" />
+                </p:column> 
+                <p:column  sortBy="#{dc.chargeReason}" style="width: 200px;" headerText="Charge Reason"> 
+                    <h:outputText value="#{dc.chargeReason}" />
+                </p:column>
+                <p:column   sortBy="#{dc.clientLogin}"  headerText="Client Login"> 
+                    <h:outputText value="#{dc.clientLogin}" />
+                </p:column> 
+                <p:column   sortBy="#{dc.isAsync}" style="width: 40px;" headerText="IsAsync"> 
+                    <h:outputText value="#{dc.isAsync}" />
+                </p:column> 
+                <p:column  sortBy="#{dc.chargeResult}"   headerText="Charge Result"> 
+                    <h:outputText value="#{dc.chargeResult}" />
+                </p:column> 
+                <p:column  sortBy="#{dc.serviceName}"  headerText="Service Name"> 
+                    <h:outputText value="#{dc.serviceName}"/>
+                </p:column>  
+                <p:column  sortBy="#{dc.clientDesc}" style="width: 70px;" headerText="ClientDesc"> 
+                    <h:outputText value="#{dc.clientDesc}"/>
+                </p:column>  
+            </p:dataTable>
+
+            <p:blockUI block="@form:transListTbl"  trigger="@form:searchBtn">
+                YÜKLƏNİR<br/>
+                <p:graphicImage  name="img/ajax-loader.gif" />
+            </p:blockUI>
+        </h:form>
+    </h:body>
+</html>

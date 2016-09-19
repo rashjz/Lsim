@@ -1,0 +1,76 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head> 
+        <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+    </h:head> 
+    <h:body> 
+        <center>
+            <h:panelGrid columns="2">
+                <p:tabView   style="width: 450px" id="alltabs">
+                    <p:tab id="inputdata" title="Input data">
+                        <h:panelGrid columns="1">
+                            <h:outputText value="Paste list to import "/>
+                            <p:inputTextarea id="txtarea" style="width: 350px;"  value="#{abookCnt.processor.manualStr}">
+                                <p:ajax process="@this" event="keyup"/>
+                            </p:inputTextarea>
+                            <h:selectOneMenu  id="typetxtCombo"   value="#{abookCnt.processor.type}"> 
+                                <f:selectItem   itemLabel="Tab" itemValue="3"/>
+                                <f:selectItem   itemLabel="Comma" itemValue="1"/>
+                                <f:selectItem   itemLabel="Pipe" itemValue="2"/>  
+                            </h:selectOneMenu>
+                            <h:commandButton id="btndataSubmit" actionListener="#{abookCnt.listfromTxtArea()}"  value="Save">
+                                <!--<f:ajax execute="@all"  ajax acilanda dublicate request  render="@all" />--> 
+                            </h:commandButton> 
+                        </h:panelGrid>
+                    </p:tab>
+
+
+
+                    <p:tab id="tabupload" title="Upload File">
+                        <h:panelGrid columns="1">
+                            <h:outputText style="font-weight: bold" value="Choose Microsoft Excel or TXT file to import (.xls or .xlsx or .txt) "/>   
+
+                            <p:fileUpload id="uploaddatafile" style="width: 350px"
+                                          value="#{abookCnt.uploadedFile}"   
+                                          fileUploadListener="#{abookCnt.handleFileUpload}"
+                                          mode="advanced"    
+                                          sizeLimit="1000000" 
+                                          allowTypes="/(\.|\/)(xls|xlsx|txt)$/" 
+                                          invalidFileMessage="Seçdiyiniz fayl uyğun deyil"
+                                          fileLimitMessage="Bir fayldan artıq seçmək olmaz"
+                                          invalidSizeMessage="Seçdiyiniz fayl həcmi uyğun deyil" 
+                                          required="true" 
+                                          requiredMessage="Fayl seçimi edin"
+                                          fileLimit="1"> 
+                            </p:fileUpload>
+                            <h:panelGrid columns="2">
+                                <h:selectOneMenu  id="typeCombo"    value="#{abookCnt.processor.txtType}"> 
+                                    <f:selectItem   itemLabel="Tab" itemValue="3"/>
+                                    <f:selectItem   itemLabel="Comma" itemValue="1"/>
+                                    <f:selectItem   itemLabel="Pipe" itemValue="2"/>  
+                                </h:selectOneMenu>
+                                <h:commandButton  id="btnSubmit"  actionListener="#{abookCnt.uf2Table()}" value="Save">
+                                    <!--<f:ajax execute="@all"  ajax acilanda dublicate request  render="@all" />--> 
+                                </h:commandButton> 
+                            </h:panelGrid> 
+                        </h:panelGrid>
+                        #{abookCnt.processor.abookRender}
+                        #{abookCnt.processor.bulksms}
+                    </p:tab>
+
+
+                    <p:tab rendered="#{abookCnt.processor.bulksms}" id="tabtable" title="Address Books">
+                        <ui:include src="table/abookTbl.xhtml"/>
+                        <h:outputText rendered="#{abookCnt.processor.bulksms}" style="color: green;font-weight: bold;margin-top: 10px;font-size: 16px;" 
+                                      value="#{abookCnt.processor.note}"/>
+                    </p:tab>
+                </p:tabView>
+                <h:commandLink value="#{msg.back}" action="#{abookCnt.goBackBooks()}"/>
+            </h:panelGrid>
+        </center> 
+
+    </h:body>
+</html>

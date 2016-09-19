@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="730" pageHeight="442" columnWidth="730" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="8535cb02-29e6-47a6-af5c-039bad987a22">
+	<property name="ireport.zoom" value="1.331000000000001"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="net.sf.jasperreports.export.xls.ignore.cell.background" value="false"/>
+	<parameter name="sqlQuery" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[$P!{sqlQuery}]]>
+	</queryString>
+	<field name="trans_type" class="java.lang.String"/>
+	<field name="msg_id" class="java.lang.String"/>
+	<field name="trans_date" class="java.lang.String"/>
+	<field name="done_date" class="java.lang.String"/>
+	<field name="msisdn" class="java.lang.String"/>
+	<field name="short_number" class="java.lang.String"/>
+	<field name="trans_desc" class="java.lang.String"/>
+	<field name="smssize" class="java.lang.String"/>
+	<field name="trans_result" class="java.lang.String"/>
+	<field name="operator_name" class="java.lang.String"/>
+	<field name="host_name" class="java.lang.String"/>
+	<field name="app_name" class="java.lang.String"/>
+	<field name="client" class="java.lang.String"/>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="9568b50c-4628-424a-901d-4c92a964b3b1" x="0" y="0" width="31" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{trans_type}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="8cd1c45d-8462-4f17-a3d4-f4fe8a07e66f" x="31" y="0" width="16" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{msg_id}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="088bd474-76d8-4477-99c1-65d4d3cad919" x="47" y="0" width="84" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{trans_date}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="3fca3396-6b7b-4ce9-92aa-211653cb0aff" x="131" y="0" width="78" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{done_date}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="cb93b9d3-1bf2-4785-8cb4-bdf539db9d6c" x="209" y="0" width="71" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{msisdn}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="7886caed-b484-459b-aee5-e369981a4a7c" x="280" y="0" width="51" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{short_number}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="3123d725-7359-45d7-ad64-f67aa20511d1" x="331" y="0" width="117" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{trans_desc}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="c2f4b0a6-baa4-414e-be72-fa24f434a239" x="448" y="0" width="26" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{smssize}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="76def1a6-c7fd-4063-a9c3-1632f1cfffef" x="474" y="0" width="51" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{trans_result}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="fecda3f7-ab20-4f16-a3ed-9fb7a87dc7f7" x="525" y="0" width="51" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{operator_name}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="850ae30d-820e-47a0-aeee-8a301795736f" x="576" y="0" width="54" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{host_name}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="5e370531-c719-4c0a-b044-a12369979708" x="630" y="0" width="49" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{app_name}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="2bb4feb9-6deb-4cc7-9894-d0060015ab7c" x="679" y="0" width="51" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{client}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

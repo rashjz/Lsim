@@ -1,0 +1,38 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head> 
+        <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+        <title>Lsim</title> 
+    </h:head> 
+    <h:body> 
+        <h:form id="TblForm"> 
+            <p:dataTable style="width: 60%" var="sn" value="#{snumCnt.shortNums}" selection="#{snumCnt.num}" 
+                         rows="20" filteredValue="#{snumCnt.viewShortNums}" paginator="true" selectionMode="single"  rowIndexVar="rowIndex" rowKey="#{sn.id}" >
+                <p:ajax event="rowSelect" listener="#{snumCnt.listener()}" update=":detailForm"/>
+                <p:column filterBy="#{sn.host_name}" headerText="host name"> 
+                    <h:outputText value="#{sn.host_name}" />
+                </p:column>  
+                <p:column filterBy="#{sn.short_num}" headerText="SHORT NUMBER"> 
+                    <h:outputText value="#{sn.short_num}" />
+                </p:column>  
+                <p:column filterBy="#{sn.isActive}" headerText="is Active"> 
+                    <h:outputText value="#{sn.isActive}" />
+                </p:column>  
+                <p:column filterBy="#{sn.incomingPrice}" headerText="incoming Price"> 
+                    <h:outputText value="#{sn.incomingPrice}" />
+                </p:column>
+                <p:column filterBy="#{sn.outgoingPrice}" headerText="outgoing Price"> 
+                    <h:outputText value="#{sn.outgoingPrice}" />
+                </p:column>
+                <p:column filterBy="#{sn.shortNumAlias}" headerText="short Number Alias"> 
+                    <h:outputText value="#{sn.shortNumAlias}" />
+                </p:column>
+            </p:dataTable>
+
+        </h:form>
+    </h:body>
+</html>

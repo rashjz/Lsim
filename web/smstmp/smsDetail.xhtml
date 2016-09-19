@@ -1,0 +1,24 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html" 
+      xmlns:p="http://primefaces.org/ui" 
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head> 
+        <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+        <title>Lsim</title> 
+    </h:head> 
+    <h:body>  
+        <h:form id="detailForm">
+            <h:panelGrid columns="3"> 
+                <p:commandButton value="Yeni"  update="@form" style="margin-left: 30px;"  action="#{smstmpCnt.newTmp()}" /> 
+                <p:commandButton value="Yaddaşa" rendered="#{loginCnt.checkAccessFP('sms_template:edit')}" update=":TblForm" style="margin-left: 30px;"  action="#{smstmpCnt.save()}" /> 
+                <p:commandButton value="Sil" rendered="#{loginCnt.checkAccessFP('sms_template:delete')}" update=":TblForm" style="margin-left: 30px;"  action="#{smstmpCnt.delete()}" /> 
+            </h:panelGrid>
+            <h:panelGrid style="margin-top: 30px;margin-left: 30px;" columns="1">
+                <h:outputText value="Message Template"/>
+                <p:inputTextarea style="width: 300px;" value="#{smstmpCnt.smstmp.tpl_text}"/>   
+            </h:panelGrid>
+
+        </h:form>
+    </h:body>
+</html>

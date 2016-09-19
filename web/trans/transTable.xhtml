@@ -1,0 +1,98 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head> 
+        <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+        <title>Lsim</title> 
+        <style type="text/css">
+            .inputDate input {
+                width: 150px !important;
+            }
+            .ui-widget-content{
+                color: black !important;
+            }
+        </style>
+    </h:head> 
+    <h:body> 
+        <h:form id="TblForm">
+            <ui:include  src="transDetail.xhtml"/>
+
+
+
+
+
+            <p:messages autoUpdate="true" closable="true" showDetail="false"/>
+
+
+
+            <p:dataTable id="transListTbl"   var="sms"  value="#{transCnt.model}" lazy="true" style="color: black;"
+                         rows="40"  widgetVar="myTblWidget" paginator="true" rowsPerPageTemplate="20,50,100,200" 
+                         rowKey="#{sms.id}"  emptyMessage="Uyğun müəlumat tapılmadı"
+                         paginatorTemplate="{CurrentPageReport} {PreviousPageLink} {PageLinks} {NextPageLink} {RowsPerPageDropdown}" >
+
+                <f:facet name="header">
+                    <h:outputText value="Count : #{transCnt.model.rowCount}" style="margin-right: 20px;"/>
+                    Export datas to file (Excel) 
+<!--                    <h:commandLink style="margin-left: 20px;"> 
+                        <p:graphicImage name="/img/Excel-icon.png" />
+                        <p:dataExporter type="xls" target="transListTbl" pageOnly="false" fileName="transactions" />
+                    </h:commandLink> -->
+                    <h:commandLink style="margin-left: 20px;" action="#{transCnt.expXLSX()}"> 
+                        <p:graphicImage name="/img/Excel-icon.png" /> 
+                    </h:commandLink> 
+                </f:facet> 
+                <p:column sortBy="#{sms.trans_type}" exportable="false"  style="width: 40px"    headerText="Type">   
+                    <h:graphicImage rendered="#{sms.trans_type eq '1'}" value="/resources/img/incoming.png"/>  
+                    <h:graphicImage rendered="#{sms.trans_type.equals('2')}" value="/resources/img/outgoing.png"/> 
+                    <h:graphicImage rendered="#{sms.trans_type.equals('3')}" value="/resources/img/charging.png"/>
+                </p:column>  
+                <p:column  sortBy="#{sms.id}" style="width: 40px;" headerText="ID"> 
+                    <h:outputText value="#{sms.id}" />
+                </p:column>  
+                <p:column   sortBy="#{sms.trans_date}"   headerText="Transaction Date"> 
+                    <h:outputText value="#{sms.trans_date}">
+                        <f:convertDateTime pattern="yyyy-MM-dd HH:mm:ss" />
+                    </h:outputText> 
+                </p:column>  
+                <p:column  sortBy="#{sms.done_date}"  headerText="Done Date"> 
+                    <h:outputText value="#{sms.done_date}" />
+                </p:column>  
+                <p:column  sortBy="#{sms.msisdn}" headerText="Msisdn"> 
+                    <h:outputText value="#{sms.msisdn}" />
+                </p:column>  
+                <p:column sortBy="#{sms.short_num}" style="width: 90px;" headerText="Short Number"> 
+                    <h:outputText value="#{sms.short_num}" />
+                </p:column>  
+                <p:column   sortBy="#{sms.trans_desc}" style="width: 200px;"  headerText="Transaction Desc"> 
+                    <h:outputText value="#{sms.trans_desc}" />
+                </p:column> 
+                <p:column  sortBy="#{sms.smssize}"  style="width: 40px;"  headerText="sms size"> 
+                    <h:outputText value="#{sms.smssize}" />
+                </p:column> 
+                <p:column  sortBy="#{sms.trans_result}" headerText="Transaction Result"> 
+                    <h:outputText value="#{sms.trans_result}" />
+                </p:column>
+                <p:column   sortBy="#{sms.operator_name}"  headerText="Operator Name"> 
+                    <h:outputText value="#{sms.operator_name}" />
+                </p:column> 
+                <p:column   sortBy="#{sms.host_name}"  headerText="Host Name"> 
+                    <h:outputText value="#{sms.host_name}" />
+                </p:column> 
+                <p:column  sortBy="#{sms.app_name}"   headerText="Application Name"> 
+                    <h:outputText value="#{sms.app_name}" />
+                </p:column> 
+                <p:column  sortBy="#{sms.client}"  headerText="Client"> 
+                    <h:outputText value="#{sms.client}"/>
+                </p:column>  
+            </p:dataTable>
+
+            <p:blockUI block="@form:transListTbl"  trigger="@form:searchBtn">
+                YÜKLƏNİR<br/>
+                <p:graphicImage  name="img/ajax-loader.gif" />
+            </p:blockUI>
+        </h:form>
+    </h:body>
+</html>

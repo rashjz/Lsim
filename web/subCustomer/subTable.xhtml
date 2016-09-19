@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head> 
+        <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+        <title>Lsim</title> 
+        <style type="text/css">
+            .inputDate input {
+                width: 150px !important;
+            }
+            .ui-widget-content{
+                color: black !important;
+            }
+        </style>
+    </h:head> 
+    <h:body> 
+        <h:form id="TblForm">
+            <ui:include  src="subDetail.xhtml"/>
+
+            <p:messages autoUpdate="true" closable="true" showDetail="false"/>
+
+            <p:dataTable id="transListTbl"   var="dc"  value="#{subCustCnt.model.customers}"   style="color: black;"
+                         rows="20"  widgetVar="myTblWidget" paginator="true" rowsPerPageTemplate="20,50,100,200" 
+                         emptyMessage="Uyğun müəlumat tapılmadı"
+                         paginatorTemplate="{CurrentPageReport} {PreviousPageLink} {PageLinks} {NextPageLink} {RowsPerPageDropdown}" > 
+                <p:column   style="width: 120px;" headerText="Subs Name"> 
+                    <h:outputText value="#{dc.subs_name}" />
+                </p:column>
+                <p:column      headerText="MSISDN"> 
+                    <h:outputText value="#{dc.msisdn}"/>  
+                </p:column>   
+                <p:column   style="width: 90px;" headerText="Subscribe Date"> 
+                    <h:outputText value="#{dc.sub_date}" />
+                </p:column>  
+                <p:column   style="width: 150px;"  headerText="unSubscribe Date"> 
+                    <h:outputText value="#{dc.unSubs_date}" />
+                </p:column>  
+                <p:column   style="width: 150px;"  headerText="Next Charge Date"> 
+                    <h:outputText value="#{dc.nextCharge_date}" />
+                </p:column> 
+                <p:column   style="width: 350px;"  headerText="Last Charge Date"> 
+                    <h:outputText value="#{dc.lastCharge_date}" />
+                </p:column> 
+                <p:column   style="width: 350px;"  headerText="Status"> 
+                    <h:outputText value="#{dc.subs_status}" />
+                </p:column> 
+                <p:column   style="width: 350px;"  headerText="Agent Name"> 
+                    <h:outputText value="#{dc.agent_name}" />
+                </p:column> 
+            </p:dataTable>
+        </h:form>
+    </h:body>
+</html>

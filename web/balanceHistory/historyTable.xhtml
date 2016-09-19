@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head> 
+        <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+        <title>Lsim</title> 
+        <style type="text/css">
+            .inputDate input {
+                width: 150px !important;
+            }
+            .ui-widget-content{
+                color: black !important;
+            }
+        </style>
+    </h:head> 
+    <h:body> 
+        <h:form id="TblForm">
+            <ui:include  src="historyDetail.xhtml"/>
+
+            <p:messages autoUpdate="true" closable="true" showDetail="false"/>
+
+            <p:dataTable id="transListTbl"   var="dc"  value="#{balancehCnt.balanceHistorys}"   style="color: black;"
+                         rows="20"  widgetVar="myTblWidget" paginator="true" rowsPerPageTemplate="20,50,100,200" 
+                         emptyMessage="Uyğun müəlumat tapılmadı"
+                         paginatorTemplate="{CurrentPageReport} {PreviousPageLink} {PageLinks} {NextPageLink} {RowsPerPageDropdown}" >
+
+                <!--                <f:facet name="header">
+                                    <h:outputText value="Count : #!{transCnt.model.rowCount}" style="margin-right: 20px;"/>
+                                    Export datas to file (Excel)  
+                                    <h:commandLink style="margin-left: 20px;" action="#!@{transCnt.expXLSX()}"> 
+                                        <p:graphicImage name="/img/Excel-icon.png" /> 
+                                    </h:commandLink> 
+                                </f:facet> -->
+
+                <p:column  sortBy="#{dc.login}" style="width: 120px;" headerText="login"> 
+                    <h:outputText value="#{dc.login}" />
+                </p:column>
+                <p:column   sortBy="#{dc.old_value}"   headerText="old_value"> 
+                    <h:outputText value="#{dc.old_value}"/>  
+                </p:column>   
+                <p:column sortBy="#{dc.new_value}" style="width: 90px;" headerText="new_value"> 
+                    <h:outputText value="#{dc.new_value}" />
+                </p:column>  
+                <p:column   sortBy="#{dc.modified_by}" style="width: 150px;"  headerText="modified_by"> 
+                    <h:outputText value="#{dc.modified_by}" />
+                </p:column>  
+                <p:column   sortBy="#{dc.modified_date}" style="width: 150px;"  headerText="modified_date"> 
+                    <h:outputText value="#{dc.modified_date}" />
+                </p:column> 
+                <p:column   sortBy="#{dc.comments}" style="width: 350px;"  headerText="comments"> 
+                    <h:outputText value="#{dc.comments}" />
+                </p:column> 
+            </p:dataTable>
+
+            <p:blockUI block="@form:transListTbl"  trigger="@form:searchBtn">
+                YÜKLƏNİR<br/>
+                <p:graphicImage  name="img/ajax-loader.gif" />
+            </p:blockUI>
+        </h:form>
+    </h:body>
+</html>
